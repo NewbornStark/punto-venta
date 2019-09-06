@@ -50,11 +50,17 @@
       <main class="main">
         <!-- Breadcrumb-->
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Home</li>
-          <li class="breadcrumb-item">
-            <a href="#">Admin</a>
-          </li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          @forelse ($breadcrumbs as $item)
+            @if (!$loop->last)
+              <li class="breadcrumb-item">
+                <a href="{{ $item['link'] }}">{{ $item['text'] }}</a>
+              </li>
+              @else
+                <li class="breadcrumb-item active">{{ $item['text'] }}</li>
+              @endif
+          @empty
+            <li class="breadcrumb-item active"><a href="{{ route('dashboard') }}"></a></li>  
+          @endforelse
         </ol>
         <div class="container-fluid">
           <div class="animated fadeIn">

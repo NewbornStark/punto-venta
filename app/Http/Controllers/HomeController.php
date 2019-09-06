@@ -28,6 +28,9 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard');
+        $breadcrumbs = [];
+        $breadcrumbs[] = ['link' => route('dashboard'), 'text' => 'Dashboard'];
+        // dd($breadcrumbs);
+        return view('dashboard', compact('breadcrumbs'));
     }
 }

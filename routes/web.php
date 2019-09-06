@@ -27,5 +27,10 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
 Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
-Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
+Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
 Route::get('/', 'HomeController@index')->name('home');
+
+// Articles
+Route::get('articles', function() {
+    echo 'articulos';
+})->name('articles');
