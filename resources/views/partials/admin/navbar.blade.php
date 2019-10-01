@@ -1,21 +1,16 @@
 <nav class="sidebar-nav">
     <ul class="nav">
     <li class="nav-item">
-        <a class="nav-link" href="index.html">
-        <i class="nav-icon icon-speedometer"></i> Dashboard
-        <span class="badge badge-primary">NEW</span>
+        <a class="nav-link" href="{{ route('dashboard') }}">
+            <i class="nav-icon icon-speedometer"></i> Dashboard
         </a>
     </li>
-    <li class="nav-title">Theme</li>
+    <li class="nav-title">Articulos</li>
     <li class="nav-item">
-        <a class="nav-link" href="colors.html">
-        <i class="nav-icon icon-drop"></i> Colors</a>
+        <a class="nav-link" href="{{ route("articles") }}">
+        <i class="nav-icon icon-puzzle"></i> Listado</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="typography.html">
-        <i class="nav-icon icon-pencil"></i> Typography</a>
-    </li>
-    <li class="nav-title">Components</li>
+    <li class="nav-title">Ventas</li>
     <li class="nav-item nav-dropdown">
         <a class="nav-link nav-dropdown-toggle" href="#">
         <i class="nav-icon icon-puzzle"></i> Base</a>

@@ -30,7 +30,6 @@ class HomeController extends Controller
     {
         $breadcrumbs = [];
         $breadcrumbs[] = ['link' => route('dashboard'), 'text' => 'Dashboard'];
-        // dd($breadcrumbs);
         return view('dashboard', compact('breadcrumbs'));
     }
 }

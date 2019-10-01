@@ -31,6 +31,10 @@ Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
 Route::get('/', 'HomeController@index')->name('home');
 
 // Articles
-Route::get('articles', function() {
-    echo 'articulos';
-})->name('articles');
+Route::get('articles', 'ArticleController@index')->name('articles');
+Route::get('articles/create', 'ArticleController@create')->name('articles.create');
+Route::post('articles', 'ArticleController@store');
+Route::get('articles/{article}/edit', 'ArticleController@edit')->name('articles.edit');
+Route::patch('articles/{article}', 'ArticleController@update')->name('articles.update');
+Route::delete('articles/{article}', 'ArticleController@destroy')->name('articles.destroy');
+
