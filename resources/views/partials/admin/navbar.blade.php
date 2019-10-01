@@ -10,6 +10,10 @@
         <a class="nav-link" href="{{ route("articles") }}">
         <i class="nav-icon icon-puzzle"></i> Listado</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route("category") }}">
+        <i class="nav-icon icon-grid"></i> Categorias</a>
+    </li>
     <li class="nav-title">Ventas</li>
     <li class="nav-item nav-dropdown">
         <a class="nav-link nav-dropdown-toggle" href="#">

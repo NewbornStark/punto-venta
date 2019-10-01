@@ -38,3 +38,11 @@ Route::get('articles/{article}/edit', 'ArticleController@edit')->name('articles.
 Route::patch('articles/{article}', 'ArticleController@update')->name('articles.update');
 Route::delete('articles/{article}', 'ArticleController@destroy')->name('articles.destroy');
 
+// Categories
+Route::get('categories', 'CategoryController@index')->name('category');
+Route::get('category/create', 'CategoryController@create')->name('category.create');
+Route::post('category', 'CategoryController@store')->name('category.store');
+Route::get('category/{category}/edit', 'CategoryController@edit')->name('category.edit');
+Route::patch('category/{category}', 'CategoryController@update')->name('category.update');
+Route::delete('category/{category}', 'CategoryController@destroy')->name('category.destroy');
+
