@@ -17,7 +17,6 @@ class CreateArticleCategoriesTable extends Migration
             $table->charset = 'utf8';
             $table->collation = 'utf8_general_ci';
             $table->bigIncrements('id');
-            $table->timestamps();
             $table->unsignedBigInteger('id_article');
             $table->unsignedBigInteger('id_category');
 

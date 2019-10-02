@@ -9,4 +9,9 @@ class Article extends Model
     protected $table = 'article';
 
     protected $fillable = ['name', 'sku', 'price'];
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category', 'article_categories', 'id_article', 'id_category');
+    }
 }

@@ -17,8 +17,8 @@ class CreateCategoryTable extends Migration
             $table->charset = 'utf8';
             $table->collation = 'utf8_general_ci';
             $table->bigIncrements('id');
-            $table->timestamps();
             $table->string('name', 50);
+            $table->timestamps();
         });
     }
 
