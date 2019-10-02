@@ -19,6 +19,7 @@
                         <thead>
                             <tr>
                                 <th class="text-center">Nombre</th>
+                                <th class="text-center">Descripción</th>
                                 <th class="text-center">Sku</th>
                                 <th class="text-center">Precio</th>
                                 <th class="text-center"></th>
@@ -28,6 +29,7 @@
                             @forelse ($articles as $article)
                                 <tr>
                                     <td>{{ $article->name }}</td>
+                                    <td>{{ $article->description }}</td>
                                     <td class="text-center">{{ $article->sku }}</td>
                                     <td class="text-right">${{ $article->price }}</td>
                                     <td class="text-center">
@@ -50,7 +52,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td class="text-center" colspan="4">No hay articulos registrados</td>
+                                    <td class="text-center" colspan="5">No hay articulos registrados</td>
                                 </tr>
                             @endforelse
                         </tbody>

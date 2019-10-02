@@ -19,6 +19,7 @@ class CreateArticleTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('name', 100);
+            $table->string('description', 255);
             $table->string('sku', 50);
             $table->decimal('price', 10, 2);
         });

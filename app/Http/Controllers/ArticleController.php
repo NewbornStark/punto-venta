@@ -40,12 +40,14 @@ class ArticleController extends Controller
     {
         request()->validate([
             'name' => 'required|max:100',
+            'description' => 'required|max:255',
             'sku' => 'required|max:50',
             'price' => 'required|numeric',
         ]);
 
         $article = Article::create([
             'name' => request('name'),
+            'description' => request('description'),
             'sku' => request('sku'),
             'price' => request('price')
         ]);
@@ -78,12 +80,14 @@ class ArticleController extends Controller
     {
         request()->validate([
             'name' => 'required|max:100',
+            'description' => 'required|max:255',
             'sku' => 'required|max:50',
             'price' => 'required|numeric',
         ]);
 
         $article->update([
             'name' => request('name'),
+            'description' => request('description'),
             'sku' => request('sku'),
             'price' => request('price')
         ]);

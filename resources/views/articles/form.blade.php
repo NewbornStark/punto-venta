@@ -6,6 +6,13 @@
     </div>
 </div>
 <div class="form-group row">
+    <label for="description" class="col-md-2 col-form-label">Descripción:</label>
+    <div class="col-md-6">
+        <textarea class="form-control" name="description" id="description"
+            rows="6">{{ old('name', $article->description) }}</textarea>
+    </div>
+</div>
+<div class="form-group row">
     <label for="sku" class="col-md-2 col-form-label">Sku:</label>
     <div class="col-md-6">
         <input type="text" class="form-control" id="sku" name="sku" value="{{ old('sku', $article->sku) }}">
