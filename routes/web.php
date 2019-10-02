@@ -46,3 +46,6 @@ Route::get('category/{category}/edit', 'CategoryController@edit')->name('categor
 Route::patch('category/{category}', 'CategoryController@update')->name('category.update');
 Route::delete('category/{category}', 'CategoryController@destroy')->name('category.destroy');
 
+// Ventas
+Route::get('sales', 'SaleController@index')->name('sales');
+Route::get('sale/create', 'SaleController@create')->name('sale.create');
