@@ -49,3 +49,4 @@ Route::delete('category/{category}', 'CategoryController@destroy')->name('catego
 // Ventas
 Route::get('sales', 'SaleController@index')->name('sales');
 Route::get('sale/create', 'SaleController@create')->name('sale.create');
+Route::get('sale/findArticle', 'SaleController@findArticle');

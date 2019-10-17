@@ -26,20 +26,6 @@
     <!-- Main styles for this application-->
     <link href="{{ asset('css/coreui/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/coreui/pace.min.css') }}" rel="stylesheet">
-    <!-- Global site tag (gtag.js) - Google Analytics-->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      // Shared ID
-      gtag('config', 'UA-118965717-3');
-      // Bootstrap ID
-      gtag('config', 'UA-118965717-5');
-    </script>
   </head>
   <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
     @include('partials.admin.header')
@@ -85,6 +71,7 @@
     <script src="{{ asset('js/coreui/pace.min.js') }}"></script>
     <script src="{{ asset('js/coreui/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('js/coreui/coreui.min.js') }}"></script>
+    <script>const siteURL = '{{route('home')}}'</script>
     @yield('pageScripts')
   </body>
 </html>
