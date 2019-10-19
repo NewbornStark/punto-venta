@@ -50,3 +50,5 @@ Route::delete('category/{category}', 'CategoryController@destroy')->name('catego
 Route::get('sales', 'SaleController@index')->name('sales');
 Route::get('sale/create', 'SaleController@create')->name('sale.create');
 Route::get('sale/findArticle', 'SaleController@findArticle');
+Route::post('sales', 'SaleController@store');
+Route::get('sale/ticket/{idSale}', 'SaleController@ticket')->name('ticket');

@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-body ">
             <form id="frmAddArticle" class="form-inline justify-content-center">
-                @csrf
+                <input type="hidden" id="csrf" value="{{csrf_token()}}">
                 <div class="input-group" id="divSelectArticle">
                     <div class="list-group" id="possibleArticles"
                         style="position:absolute; top: 2rem; z-index:10">
@@ -24,7 +24,7 @@
                         </button>
                     </div>
                     <input class="form-control col-md-2 text-center" id="quantity"
-                    type="text" value="0">
+                        type="text" value="0" readonly>
                     <div class="input-group-append">
                         <button class="btn btn-sm btn-secondary" id="addQuantity">
                             <i class="fa fa-plus"></i>
@@ -39,8 +39,8 @@
     <div class="card">
         <div class="card-header">Articulos</div>
         <div class="card-body">
-            <table class="table table-borderless table-striped">
-                <thead>
+            <table class="table table-borderless table-striped table-sm">
+                <thead class="thead-dark">
                     <th class="text-center">Sku</th>
                     <th class="text-center">Articulo</th>
                     <th class="text-center">Cantidad</th>
@@ -49,6 +49,48 @@
                     <th class="text-center" style="width: 1em"></th>
                 </thead>
                 <tbody id="articlesList"></tbody>
+                <tfoot class="table-dark">
+                    <tr>
+                        <td class="text-right" colspan="4">Subtotal:</td>
+                        <td class="text-right" id="subtotal"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle text-right" colspan="4">Descuento:</td>
+                        <td>
+                            <input type="number" min="0" value="0" id="discount"
+                            class="form-control form-control-sm text-right">
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right" colspan="4">Total:</td>
+                        <td class="text-right" id="total"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="align-middle text-right" colspan="4">Forma de pago:</td>
+                        <td>
+                            <select name="payment" id="payment" 
+                                class="form-control form-control-sm text-left">
+                                @forelse ($paymentMethods as $id => $name)
+                                    <option value="{{$id}}">{{$name}}</option>
+                                @empty
+                                    <option value="">No hay métodos de pago</option>
+                                @endforelse
+                            </select>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right" colspan="4">&nbsp;</td>
+                        <td class="text-right">
+                            <button class="btn btn-success btn-sm" id="btnSave" disabled>
+                                Finalizar venta</button>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>

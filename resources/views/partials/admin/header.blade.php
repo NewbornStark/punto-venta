@@ -13,12 +13,6 @@
         <li class="nav-item px-3">
             <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
         </li>
-        <li class="nav-item px-3">
-            <a class="nav-link" href="#">Users</a>
-        </li>
-        <li class="nav-item px-3">
-            <a class="nav-link" href="#">Settings</a>
-        </li>
     </ul>
     <ul class="nav navbar-nav ml-auto mr-3">
         <li class="nav-item dropdown">

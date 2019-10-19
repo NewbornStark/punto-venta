@@ -4,6 +4,7 @@ $(() => {
 
 var articleToAdd = {}
 var saleArticles = []
+const i18n = new Intl.NumberFormat('es-MX', {style: 'currency', currency: 'MXN'})
 
 handlers = () => {
     document.querySelector('#frmAddArticle').addEventListener('submit', function (evt) {
@@ -31,6 +32,7 @@ handlers = () => {
                     option.innerText = `${element.sku} - ${element.name}`
                     option.dataset.id = element.id
                     option.dataset.name = element.name
+                    option.dataset.description = element.description
                     option.dataset.sku = element.sku
                     option.dataset.price = element.price
                     box.append(option)
@@ -44,23 +46,20 @@ handlers = () => {
     //     document.getElementById('possibleArticles').innerHTML = '';
     // })
     document.querySelector('#possibleArticles').addEventListener('click', function(evt) {
-        var classes = evt.target.classList
         var data = evt.target.dataset
-        for (var i = 0; i < classes.length; i++) {
-            if (classes[i] == 'select-article') {
-                articleToAdd.id = data.id
-                articleToAdd.sku = data.sku
-                articleToAdd.price = data.price
-                articleToAdd.name = data.name
-                document.querySelector('#divSelectArticle').style.display = 'none'
-                document.querySelector('#selectedArticleText').style.display = 'flex'
-                document.querySelector('#selectedArticleLabel').innerText = data.name
-                document.querySelector('#quantity').value = 1
-                document.querySelector('#btnAddArticle').removeAttribute('disabled')
-                document.querySelector('#possibleArticles').innerHTML = '';
-                document.querySelector('#noArticle').value = '';
-                break;
-            }
+        if (evt.target.classList.contains('select-article')) {
+            articleToAdd.id = data.id
+            articleToAdd.sku = data.sku
+            articleToAdd.price = data.price
+            articleToAdd.name = data.name
+            articleToAdd.description = data.description
+            document.querySelector('#divSelectArticle').style.display = 'none'
+            document.querySelector('#selectedArticleText').style.display = 'flex'
+            document.querySelector('#selectedArticleLabel').innerText = data.name
+            document.querySelector('#quantity').value = 1
+            document.querySelector('#btnAddArticle').removeAttribute('disabled')
+            document.querySelector('#possibleArticles').innerHTML = '';
+            document.querySelector('#noArticle').value = '';
         }
     })
     document.querySelector('#cancelArticle').addEventListener('click', function(evt) {
@@ -72,6 +71,57 @@ handlers = () => {
         articleToAdd.quantity = parseInt(document.querySelector('#quantity').value)
         addArticle()
         refreshArticleToAdd()
+    })
+    document.querySelector('#articlesList').addEventListener('click', function(evt) {
+        var element = evt.target
+        var id = element.dataset.id
+        if (element.classList.contains('remove-article')) {
+            var sure = confirm('¿Está seguro de quitar el artículo?')
+            if (!sure) return false
+            saleArticles = saleArticles.filter((article) => article.id != id)
+            refreshArticlesTable()
+            if (!saleArticles.length) {
+                document.querySelector('#btnSave').setAttribute('disabled', true)
+            }
+        }
+    })
+    document.querySelector('#discount').addEventListener('change', function(evt) {
+        evt.preventDefault()
+        refreshArticlesTable()
+    })
+    document.querySelector('#btnSave').addEventListener('click', function(evt) {
+        evt.preventDefault()
+        var slcPayment = document.querySelector('#payment')
+        var data = {
+            payment: slcPayment.item(slcPayment.selectedIndex).text,
+            discount: document.querySelector('#discount').value,
+            articles: saleArticles
+        }
+        var params = {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('#csrf').value
+            }
+        }
+        fetch(`${siteURL}/sales`, params)
+            .then((res) => {
+                return res.json()
+            })
+            .then((data) => {
+                if (data.hasOwnProperty('errors')) {
+                    alert(data.errors.join('\n'))
+                } else if (data.hasOwnProperty('success') && data.success) {
+                    var urlTicket = `${siteURL}/sale/ticket/${data.sale}`
+                    window.open(urlTicket, '_blank', 'width=350,height=400')
+                    window.setTimeout(() => {
+                        window.location = `${siteURL}/sales`
+                    }, 2000)
+                }
+            })
+            .catch()
     })
 
     function changeQuantity(actionType = 'none') {
@@ -98,6 +148,9 @@ handlers = () => {
             saleArticles.push(articleToAdd)
         }
         refreshArticlesTable()
+        if (saleArticles.length) {
+            document.querySelector('#btnSave').removeAttribute('disabled')
+        }
     }
 
     function refreshArticleToAdd() {
@@ -110,15 +163,18 @@ handlers = () => {
     }
 
     function refreshArticlesTable() {
-        rows = ''
+        var rows = ''
+        var subtotal = 0
+        var discount = parseFloat(document.querySelector('#discount').value)
         saleArticles.forEach((article) => {
             var totalPrice = article.quantity * article.price
+            subtotal = subtotal + totalPrice
             var row = `<tr>
                 <td class="text-center">${article.sku}</td>
                 <td class="text-left">${article.name}</td>
                 <td class="text-center">${article.quantity}</td>
-                <td class="text-right">${article.price}</td>
-                <td class="text-right">${totalPrice.toFixed(2)}</td>
+                <td class="text-right">${i18n.format(article.price)}</td>
+                <td class="text-right">${i18n.format(totalPrice)}</td>
                 <td class="text-center">
                   <i class="fa fa-times text-danger remove-article" 
                     title="Quitar articulo" data-id="${article.id}"></i>
@@ -126,7 +182,10 @@ handlers = () => {
             </tr>`
             rows += row
         })
+        subtotal = subtotal.toFixed(2)
         document.querySelector('#articlesList').innerHTML = rows
+        document.querySelector('#subtotal').innerHTML = i18n.format(subtotal)
+        document.querySelector('#total').innerHTML = i18n.format(subtotal - discount)
     }
 }
 
